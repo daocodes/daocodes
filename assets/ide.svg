@@ -1,0 +1,241 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440" width="900" height="440" role="img" aria-label="An animated code editor: the file tree steps through about.md, skills.md, projects.md, awards.md and neetcode.md while the editor pane follows along.">
+  <title>daocodes — editor</title>
+
+  <defs>
+    <clipPath id="win"><rect x="0.5" y="0.5" width="899" height="439" rx="11"/></clipPath>
+    <style>
+      .m { font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace; }
+      text { white-space: pre; }
+
+      /* ---- 20s loop, five scenes at 4s each ---- */
+      .sc  { animation: 20s linear infinite both; }
+      .sc0 { animation-name: s0 } .sc1 { animation-name: s1 } .sc2 { animation-name: s2 }
+      .sc3 { animation-name: s3 } .sc4 { animation-name: s4 }
+      @keyframes s0 { 0%,17%{opacity:1} 20%,97%{opacity:0} 100%{opacity:1} }
+      @keyframes s1 { 0%,18%{opacity:0} 21%,37%{opacity:1} 40%,100%{opacity:0} }
+      @keyframes s2 { 0%,38%{opacity:0} 41%,57%{opacity:1} 60%,100%{opacity:0} }
+      @keyframes s3 { 0%,58%{opacity:0} 61%,77%{opacity:1} 80%,100%{opacity:0} }
+      @keyframes s4 { 0%,78%{opacity:0} 81%,96%{opacity:1} 99%,100%{opacity:0} }
+
+      /* ---- content lifts as it fades in ---- */
+      .rise  { animation: 20s cubic-bezier(.2,.7,.2,1) infinite both; }
+      .rise0 { animation-name: r0 } .rise1 { animation-name: r1 } .rise2 { animation-name: r2 }
+      .rise3 { animation-name: r3 } .rise4 { animation-name: r4 }
+      @keyframes r0 { 0%,20%{transform:translateY(0)}  96%{transform:translateY(9px)} 100%{transform:translateY(0)} }
+      @keyframes r1 { 0%,18%{transform:translateY(9px)} 25%,100%{transform:translateY(0)} }
+      @keyframes r2 { 0%,38%{transform:translateY(9px)} 45%,100%{transform:translateY(0)} }
+      @keyframes r3 { 0%,58%{transform:translateY(9px)} 65%,100%{transform:translateY(0)} }
+      @keyframes r4 { 0%,78%{transform:translateY(9px)} 85%,100%{transform:translateY(0)} }
+
+      /* ---- sidebar selection glides between rows ---- */
+      .sel { animation: sel 20s cubic-bezier(.5,0,.2,1) infinite both; }
+      @keyframes sel {
+        0%,18%   { transform: translateY(0) }
+        21%,38%  { transform: translateY(26px) }
+        41%,58%  { transform: translateY(52px) }
+        61%,78%  { transform: translateY(78px) }
+        81%,98%  { transform: translateY(104px) }
+        100%     { transform: translateY(0) }
+      }
+
+      /* ---- skill bars fill during scene 2 ---- */
+      .bar { transform-box: fill-box; transform-origin: 0 50%; animation: 20s cubic-bezier(.2,.8,.2,1) infinite both; }
+      .b1 { animation-name: b1 } .b2 { animation-name: b2 }
+      .b3 { animation-name: b3 } .b4 { animation-name: b4 }
+      @keyframes b1 { 0%,21%{transform:scaleX(0)} 30%,100%{transform:scaleX(1)} }
+      @keyframes b2 { 0%,22%{transform:scaleX(0)} 31%,100%{transform:scaleX(1)} }
+      @keyframes b3 { 0%,23%{transform:scaleX(0)} 32%,100%{transform:scaleX(1)} }
+      @keyframes b4 { 0%,24%{transform:scaleX(0)} 33%,100%{transform:scaleX(1)} }
+
+      /* ---- neetcode bars fill during scene 5 ---- */
+      .nb { transform-box: fill-box; transform-origin: 0 50%; animation: 20s cubic-bezier(.2,.8,.2,1) infinite both; }
+      .n0 { animation-name: n0 } .n1 { animation-name: n1 } .n2 { animation-name: n2 }
+      .n3 { animation-name: n3 } .n4 { animation-name: n4 } .n5 { animation-name: n5 }
+      @keyframes n0 { 0%,81%{transform:scaleX(0)} 92%,100%{transform:scaleX(1)} }
+      @keyframes n1 { 0%,82%{transform:scaleX(0)} 90%,100%{transform:scaleX(1)} }
+      @keyframes n2 { 0%,83%{transform:scaleX(0)} 91%,100%{transform:scaleX(1)} }
+      @keyframes n3 { 0%,84%{transform:scaleX(0)} 92%,100%{transform:scaleX(1)} }
+      @keyframes n4 { 0%,85%{transform:scaleX(0)} 93%,100%{transform:scaleX(1)} }
+      @keyframes n5 { 0%,86%{transform:scaleX(0)} 94%,100%{transform:scaleX(1)} }
+
+      .caret { animation: blink 1.06s steps(1) infinite; }
+      @keyframes blink { 0%,50%{opacity:1} 51%,100%{opacity:0} }
+
+      @media (prefers-reduced-motion: reduce) {
+        .sc,.rise,.sel,.bar,.nb,.caret { animation: none }
+        .sc1,.sc2,.sc3,.sc4 { opacity: 0 }
+      }
+    </style>
+  </defs>
+
+  <g clip-path="url(#win)">
+    <rect width="900" height="440" fill="#0b0f14"/>
+
+    <!-- title bar -->
+    <rect width="900" height="38" fill="#11161d"/>
+    <circle cx="20" cy="19" r="6" fill="#ff5f57"/>
+    <circle cx="40" cy="19" r="6" fill="#febc2e"/>
+    <circle cx="60" cy="19" r="6" fill="#28c840"/>
+    <text class="m" x="450" y="23" text-anchor="middle" font-size="11.5" fill="#6e7781">daocodes — ~/dev/daocodes</text>
+
+    <!-- sidebar -->
+    <rect y="38" width="208" height="402" fill="#0a0d11"/>
+    <text class="m" x="20" y="66" font-size="9.5" letter-spacing="1.6" fill="#5b6472">EXPLORER</text>
+    <text class="m" x="20" y="94" font-size="11" letter-spacing="0.8" fill="#c9d1d9">▾ DAOCODES</text>
+
+    <g class="sel"><rect x="8" y="106" width="192" height="24" rx="5" fill="#182130"/><rect x="8" y="106" width="2" height="24" fill="#79c0ff"/></g>
+
+    <g class="m" font-size="12.5" fill="#7d8590">
+      <circle cx="30" cy="114" r="3" fill="#79c0ff"/><text x="44" y="118">about.md</text>
+      <circle cx="30" cy="140" r="3" fill="#a371f7"/><text x="44" y="144">skills.md</text>
+      <circle cx="30" cy="166" r="3" fill="#7ee787"/><text x="44" y="170">projects.md</text>
+      <circle cx="30" cy="192" r="3" fill="#f2cc60"/><text x="44" y="196">awards.md</text>
+      <circle cx="30" cy="218" r="3" fill="#ffa657"/><text x="44" y="222">neetcode.md</text>
+    </g>
+    <g class="m" font-size="12.5" fill="#e6edf3">
+      <text class="sc sc0" x="44" y="118">about.md</text>
+      <text class="sc sc1" x="44" y="144">skills.md</text>
+      <text class="sc sc2" x="44" y="170">projects.md</text>
+      <text class="sc sc3" x="44" y="196">awards.md</text>
+      <text class="sc sc4" x="44" y="222">neetcode.md</text>
+    </g>
+    <text class="m" x="188" y="196" font-size="10.5" text-anchor="end" fill="#f2cc60">5</text>
+    <text id="nc-badge" class="m" x="188" y="222" font-size="10.5" text-anchor="end" fill="#ffa657">7</text>
+    <line x1="208.5" y1="38" x2="208.5" y2="440" stroke="#1c2430"/>
+
+    <!-- tab strip -->
+    <rect x="208" y="38" width="692" height="38" fill="#0d1218"/>
+    <line x1="208" y1="75.5" x2="900" y2="75.5" stroke="#1c2430"/>
+    <rect x="208" y="38" width="172" height="38" fill="#0b0f14"/>
+    <rect x="208" y="38" width="172" height="2" fill="#79c0ff"/>
+    <line x1="379.5" y1="40" x2="379.5" y2="76" stroke="#1c2430"/>
+    <g class="m" font-size="12" fill="#c9d1d9">
+      <g class="sc sc0"><circle cx="226" cy="57" r="3" fill="#79c0ff"/><text x="240" y="61">about.md</text></g>
+      <g class="sc sc1"><circle cx="226" cy="57" r="3" fill="#a371f7"/><text x="240" y="61">skills.md</text></g>
+      <g class="sc sc2"><circle cx="226" cy="57" r="3" fill="#7ee787"/><text x="240" y="61">projects.md</text></g>
+      <g class="sc sc3"><circle cx="226" cy="57" r="3" fill="#f2cc60"/><text x="240" y="61">awards.md</text></g>
+      <g class="sc sc4"><circle cx="226" cy="57" r="3" fill="#ffa657"/><text x="240" y="61">neetcode.md</text></g>
+    </g>
+    <text class="m" x="358" y="62" font-size="14" fill="#5b6472">×</text>
+
+    <!-- gutter -->
+    <g class="m" font-size="11.5" fill="#3f4855" text-anchor="end">
+      <text x="250" y="110">1</text><text x="250" y="134">2</text><text x="250" y="158">3</text>
+      <text x="250" y="182">4</text><text x="250" y="206">5</text><text x="250" y="230">6</text>
+      <text x="250" y="254">7</text><text x="250" y="278">8</text><text x="250" y="302">9</text>
+      <text x="250" y="326">10</text><text x="250" y="350">11</text><text x="250" y="374">12</text>
+    </g>
+
+    <!-- ================= about.md ================= -->
+    <g class="sc sc0"><g class="rise rise0">
+      <g class="m" font-size="13">
+        <text x="272" y="110"><tspan fill="#ff7b72"># </tspan><tspan fill="#e6edf3" font-weight="600">Dao Bui</tspan></text>
+        <text x="272" y="158" fill="#8b949e">CS and Math @ UNC–Chapel Hill · 4.0 GPA · May 2028</text>
+        <text x="272" y="182" fill="#8b949e">ML research, RAG systems, and backend engineering.</text>
+        <text x="272" y="230" fill="#5b6472">email</text><text x="380" y="230" fill="#7ee787">tdaobui2025@gmail.com</text>
+        <text x="272" y="254" fill="#5b6472">github</text><text x="380" y="254" fill="#7ee787">github.com/daocodes</text>
+        <text x="272" y="278" fill="#5b6472">linkedin</text><text x="380" y="278" fill="#7ee787">linkedin.com/in/daotbui</text>
+        <text x="272" y="326" fill="#a371f7">$</text><text x="292" y="326" fill="#c9d1d9">open to Summer 2027 internships</text>
+        <rect class="caret" x="542" y="315" width="7" height="15" fill="#79c0ff" opacity="0.85"/>
+      </g>
+    </g></g>
+
+    <!-- ================= skills.md ================= -->
+    <g class="sc sc1"><g class="rise rise1">
+      <g class="m" font-size="13">
+        <text x="272" y="110"><tspan fill="#ff7b72">## </tspan><tspan fill="#e6edf3" font-weight="600">skills</tspan></text>
+
+        <text x="272" y="158" fill="#8b949e">Python</text>
+        <rect x="420" y="149" width="180" height="6" rx="3" fill="#1c2430"/>
+        <rect class="bar b1" x="420" y="149" width="180" height="6" rx="3" fill="#79c0ff"/>
+
+        <text x="272" y="182" fill="#8b949e">TypeScript</text>
+        <rect x="420" y="173" width="180" height="6" rx="3" fill="#1c2430"/>
+        <rect class="bar b2" x="420" y="173" width="60" height="6" rx="3" fill="#a371f7"/>
+
+        <text x="272" y="206" fill="#8b949e">Java</text>
+        <rect x="420" y="197" width="180" height="6" rx="3" fill="#1c2430"/>
+        <rect class="bar b3" x="420" y="197" width="45" height="6" rx="3" fill="#7ee787"/>
+
+        <text x="272" y="230" fill="#8b949e">C++</text>
+        <rect x="420" y="221" width="180" height="6" rx="3" fill="#1c2430"/>
+        <rect class="bar b4" x="420" y="221" width="14" height="6" rx="3" fill="#ffa657"/>
+
+        <text x="272" y="278" fill="#5b6472">ml</text><text x="352" y="278" fill="#8b949e">pytorch · scikit-learn · xgboost · pandas</text>
+        <text x="272" y="302" fill="#5b6472">cv</text><text x="352" y="302" fill="#8b949e">opencv · mediapipe · yolov8</text>
+        <text x="272" y="326" fill="#5b6472">ai</text><text x="352" y="326" fill="#8b949e">langgraph · llamaindex · rag · pgvector</text>
+        <text x="272" y="350" fill="#5b6472">infra</text><text x="352" y="350" fill="#8b949e">aws · docker · slurm · postgres · sql · git</text>
+      </g>
+    </g></g>
+
+    <!-- ================= projects.md ================= -->
+    <g class="sc sc2"><g class="rise rise2">
+      <g class="m" font-size="13">
+        <text x="272" y="110"><tspan fill="#ff7b72">## </tspan><tspan fill="#e6edf3" font-weight="600">projects</tspan></text>
+
+        <text x="272" y="158" fill="#5b6472">▸</text><text x="292" y="158" fill="#79c0ff">care-predict</text>
+        <text x="292" y="182" fill="#8b949e">treatment outcomes · XGBoost + SHAP · R² 0.95</text>
+
+        <text x="272" y="230" fill="#5b6472">▸</text><text x="292" y="230" fill="#79c0ff">firefly-pso</text><text x="420" y="230" fill="#f2cc60">paper</text>
+        <text x="292" y="254" fill="#8b949e">metaheuristic portfolio optimizer · 4.67 Sharpe</text>
+
+        <text x="272" y="302" fill="#5b6472">▸</text><text x="292" y="302" fill="#79c0ff">sobriety-cv</text><text x="420" y="302" fill="#79c0ff" opacity="0.55">cv</text>
+        <text x="292" y="326" fill="#8b949e">iris velocity + gait sway from webcam video</text>
+        <text x="292" y="350" fill="#8b949e">MediaPipe · OpenCV · pose landmark tracking</text>
+
+      </g>
+    </g></g>
+
+    <!-- ================= awards.md ================= -->
+    <g class="sc sc3"><g class="rise rise3">
+      <g class="m" font-size="13">
+        <text x="272" y="110"><tspan fill="#ff7b72">## </tspan><tspan fill="#e6edf3" font-weight="600">awards</tspan></text>
+
+        <text x="272" y="158" fill="#5b6472">2026</text><text x="340" y="158" fill="#f2cc60">2nd / 32</text><text x="448" y="158" fill="#8b949e">Big Data Health Science Case Comp</text>
+        <text x="272" y="182" fill="#5b6472">2026</text><text x="340" y="182" fill="#f2cc60">cloud</text><text x="448" y="182" fill="#8b949e">Rice Datathon — best use of cloud</text>
+        <text x="272" y="206" fill="#5b6472">2025</text><text x="340" y="206" fill="#f2cc60">data</text><text x="448" y="206" fill="#8b949e">NASA Hackathon @ Clemson — best use of data</text>
+        <text x="272" y="230" fill="#5b6472">2026</text><text x="340" y="230" fill="#7d8590">success</text><text x="448" y="230" fill="#8b949e">MCM — Successful Participant</text>
+
+        <text x="272" y="302" fill="#3f4855">// 4 hackathons · co-founded Palmetto Hacks (40+ hackers)</text>
+        <text x="272" y="326" fill="#3f4855">// Director of Prof. Development, Kappa Theta Pi</text>
+      </g>
+    </g></g>
+
+    <!-- ================= neetcode.md ================= -->
+    <g class="sc sc4"><g class="rise rise4">
+      <g class="m" font-size="13">
+        <text x="272" y="110"><tspan fill="#ff7b72">## </tspan><tspan fill="#e6edf3" font-weight="600">neetcode</tspan></text>
+
+        <text x="272" y="158" fill="#7ee787">easy</text>
+        <rect x="380" y="149" width="260" height="6" rx="3" fill="#1c2430"/>
+        <rect id="nc-bar-easy" class="nb n1" x="380" y="149" width="260.0" height="6" rx="3" fill="#7ee787"/>
+        <text id="nc-count-easy" x="664" y="158" fill="#e6edf3">6</text>
+
+        <text x="272" y="182" fill="#f2cc60">medium</text>
+        <rect x="380" y="173" width="260" height="6" rx="3" fill="#1c2430"/>
+        <rect id="nc-bar-medium" class="nb n2" x="380" y="173" width="43.3" height="6" rx="3" fill="#f2cc60"/>
+        <text id="nc-count-medium" x="664" y="182" fill="#e6edf3">1</text>
+
+        <text x="272" y="206" fill="#ff7b72">hard</text>
+        <rect x="380" y="197" width="260" height="6" rx="3" fill="#1c2430"/>
+        <rect id="nc-bar-hard" class="nb n3" x="380" y="197" width="0.0" height="6" rx="3" fill="#ff7b72"/>
+        <text id="nc-count-hard" x="664" y="206" fill="#e6edf3">0</text>
+
+        <text x="272" y="278" fill="#5b6472">total</text>
+        <text id="nc-total" x="380" y="278" fill="#e6edf3">7 problems solved</text>
+
+        <text id="nc-stamp" x="272" y="374" fill="#3f4855">// auto-updated 2026-08-19 from leetcode.com/u/daocodes</text>
+      </g>
+    </g></g>
+
+    <!-- status bar -->
+    <rect y="410" width="900" height="30" fill="#11161d"/>
+    <line x1="0" y1="410.5" x2="900" y2="410.5" stroke="#1c2430"/>
+    <g class="m" font-size="10.5" fill="#5b6472">
+      <text x="20" y="429"><tspan fill="#79c0ff">⎇</tspan> main</text>
+      <text x="96" y="429">✓ 0   ⚠ 0</text>
+      <text x="880" y="429" text-anchor="end">UTF-8   LF   Markdown   Ln 12, Col 1</text>
+    </g>
+  </g>
+  <rect x="0.5" y="0.5" width="899" height="439" rx="11" fill="none" stroke="#1f2630"/>
+</svg>
